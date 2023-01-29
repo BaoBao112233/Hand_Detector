@@ -15,12 +15,13 @@ def draw_results(frame, user_draw):
     frame = cv2.putText(frame,'You', (50,50), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 2, cv2.LINE_AA)
 
     s_img = cv2.imread(os.path.join("pix", str(user_draw) + ".png"))
+    print(s_img)
     x_offset = 50
     y_offset = 100
     frame[y_offset:y_offset + s_img.shape[0], x_offset:x_offset + s_img.shape[1]] = s_img
 
     # Vẽ hình, viết chữ theo com_dram
-    frame = cv2.putText(frame,'Com', (50,50), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 2, cv2.LINE_AA)
+    frame = cv2.putText(frame,'Com', (400,50), cv2.FONT_HERSHEY_COMPLEX, 1, (0,0,255), 2, cv2.LINE_AA)
 
     s_img = cv2.imread(os.path.join("pix", str(com_draw) + ".png"))
     x_offset = 400
@@ -34,6 +35,9 @@ def draw_results(frame, user_draw):
         result = "YOU WIN!!!"
     else:
         result = "YOU LOSE!!"
+    
+    frame = cv2.putText(frame,result,(50,550),cv2.FONT_HERSHEY_COMPLEX,1,(255,0,255),2,cv2.LINE_AA)
+
 while True:
     ret, frame = cam.read()
     frame = cv2.flip(frame, 1) # Dùng để lật lại camera

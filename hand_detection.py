@@ -26,7 +26,7 @@ class handDetector():
             # Vẽ landmark cho các bàn tay
             for handlm in results.multi_hand_landmarks:
                 # Vẽ các đường nối giữa các đốt
-                self.moDraw.draw_landmarks(img, handlm, self.mpHands.HAND_CONNECTIONS)
+                self.mpDraw.draw_landmarks(img, handlm, self.mpHands.HAND_CONNECTIONS)
 
                 # Trích ra các tọa độ của các khớp ngón tay
                 # Để tiện cho việc quan sát nên chỉ lấy ra tọa độ của bàn tay đầu tiên
@@ -51,12 +51,12 @@ class handDetector():
         if len(hand_lm_list)>0:
             # Kiểm tra ngón cái Thump - số 0 là ngón cai
             # Có thể sử dụng ảnh HandLandmarks.pnd để có thể hình dung dễ hơn
-            if hand_lm_list[finger_start_index[0]][1] < hand_lm_list[finger_start_index[0]-1][1]:
+            if (hand_lm_list[finger_start_index[0]][1]<hand_lm_list[finger_start_index[0]-1][1]).all():
                 n_fingers += 1
             
             # Kiểm tra các ngón còn lại
             for idx in range(1,5):
-                if hand_lm_list[finger_start_index[idx]][2] < hand_lm_list[finger_start_index[idx]-2][2]:
+                if (hand_lm_list[finger_start_index[idx]][2] < hand_lm_list[finger_start_index[idx]-2][2]).all():
                     n_fingers += 1
         
             return n_fingers
